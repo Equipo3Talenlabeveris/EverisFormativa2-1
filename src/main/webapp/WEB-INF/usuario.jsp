@@ -11,7 +11,7 @@
 
 			<body>
 
-				<form:form action="/usuario/crear" method="post" modelAttribute="usuario">
+				<form:form action="/persona/crear" method="post" modelAttribute="usuario">
 					<form:label path="rut">rut:</form:label>
 					<form:input type="text" path="rut" /><br>
 

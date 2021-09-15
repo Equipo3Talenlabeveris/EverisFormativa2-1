@@ -32,4 +32,6 @@ public class PersonaService {
 	public void deletePersona(Long id) {
 		this.pr.deleteById(id);
 	}
+	
+	
 }
