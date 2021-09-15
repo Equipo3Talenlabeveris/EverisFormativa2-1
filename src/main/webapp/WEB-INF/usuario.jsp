@@ -10,6 +10,11 @@
 			</head>
 
 			<body>
+			
+			<h4 class="text-danger">
+					<c:out value="${error}"></c:out>
+				</h4>
+			
 
 				<form:form action="/persona/crear" method="post" modelAttribute="usuario">
 					<form:label path="rut">rut:</form:label>

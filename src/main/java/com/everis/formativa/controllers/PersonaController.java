@@ -38,7 +38,7 @@ public class PersonaController {
 	
 	
 	@RequestMapping(value="/crear", method = RequestMethod.POST)
-	public String crear(@Valid @ModelAttribute("usuario") Persona persona) {
+	public String crear(@Valid @ModelAttribute("usuario") Persona persona, Model model) {
 		System.out.println("Crear" + persona);
 		//llamado a guardar el objeto
 		
@@ -46,8 +46,11 @@ public class PersonaController {
 		System.out.println(persona.getEmail());
 		System.out.println(persona.getApellido());
 		
-		if(persona.getNombre().length()>20||persona.getNombre().length()<3||persona.getApellido().length()>20||persona.getApellido().length()<3||persona.getEmail().length()<10) {
-			return "error";
+		if(persona.getNombre().length()>20||persona.getNombre().length()<3||persona.getApellido().length()>20||persona.getApellido().length()<3||persona.getEmail().length()<10||persona.getRut().isEmpty()) {
+			model.addAttribute("error", "Los campos ingresados no cumplen las condiciones");
+			List<Persona> lista_persona = es.findAll();
+			model.addAttribute("lista", lista_persona);
+			return "usuario.jsp";
 		}
 		else {
 			es.crearPersona(persona); //va a service
@@ -68,11 +71,15 @@ public class PersonaController {
 	}
 	
 	@RequestMapping(value="/modificar", method = RequestMethod.PUT)
-	public String modificar(@Valid @ModelAttribute("usuario") Persona persona) {
+	public String modificar(@Valid @ModelAttribute("usuario") Persona persona, Model model) {
 		System.out.println(persona.getId());
 		
-		if(persona.getNombre().length()>20||persona.getNombre().length()<3||persona.getApellido().length()>20||persona.getApellido().length()<3||persona.getEmail().length()<10) {
-			return "error";
+		if(persona.getNombre().length()>20||persona.getNombre().length()<3||persona.getApellido().length()>20||persona.getApellido().length()<3||persona.getEmail().length()<10||persona.getRut().isEmpty()) {	
+			model.addAttribute("error", "Los campos ingresados no cumplen las condiciones");
+			model.addAttribute("usuario", persona);
+			return "redirect:/persona/actualizar/"+persona.getId();
+			
+			
 		}
 		else {
 			es.crearPersona(persona); //va a service

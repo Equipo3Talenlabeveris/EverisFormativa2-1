@@ -9,6 +9,13 @@
 </head>
 	<body>
 		<div>
+		
+			<h4 class="text-danger">
+					<c:out value="${error}"></c:out>
+				</h4>
+			
+		
+		
 				<form:form action="/persona/modificar" method="post" modelAttribute="usuario">
 					<input type="hidden" name="_method" value="put" >
 					<form:hidden path="id"/>
