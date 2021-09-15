@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.models.Empleado;
-import com.example.demo.services.EmpleadoService;
+import com.everis.formativa.models.Persona;
+import com.everis.formativa.services.PersonaService;
 
 @Controller
 @RequestMapping("/persona")
@@ -55,7 +54,7 @@ public class PersonaController {
 	public String actualizar(@PathVariable("id") Long id, Model model) {
 		System.out.println("Se actualizará el ID" + id);
 		
-		Persona persona = es.buscarPersona(id);
+		Persona persona = es.findById(id);
 		model.addAttribute("usuario", persona);
 		return "editar_usuario.jsp";
 	}
@@ -64,7 +63,7 @@ public class PersonaController {
 	public String modificar(@Valid @ModelAttribute("usuario") Persona persona) {
 		System.out.println(persona.getId());
 		
-		es.modificarPersona(persona); //va a service
+		es.crearPersona(persona); //va a service
 		
 		return "redirect:/persona";
 	}
@@ -74,7 +73,7 @@ public class PersonaController {
 	public String eliminar2(@PathVariable("id") Long id) {
 		System.out.println("Se eliminará (versión 2) el ID" + id);
 		
-		es.eliminarPersona(id); //va a service
+		es.deletePersona(id); //va a service
 		
 		return "redirect:/persona";
 	}
