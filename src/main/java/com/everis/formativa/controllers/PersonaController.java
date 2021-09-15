@@ -46,9 +46,15 @@ public class PersonaController {
 		System.out.println(persona.getEmail());
 		System.out.println(persona.getApellido());
 		
-		es.crearPersona(persona); //va a service
+		if(persona.getNombre().length()>20||persona.getNombre().length()<3||persona.getApellido().length()>20||persona.getApellido().length()<3||persona.getEmail().length()<10) {
+			return "error";
+		}
+		else {
+			es.crearPersona(persona); //va a service
+			
+			return "redirect:/persona";
+		}
 		
-		return "redirect:/persona";
 	}
 	
 	//METODOS DE ACTUALIZAR-----------------------------------
