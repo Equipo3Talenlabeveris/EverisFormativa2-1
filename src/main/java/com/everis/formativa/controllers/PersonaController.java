@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.everis.formativa.models.Persona;
 import com.everis.formativa.services.PersonaService;
@@ -46,7 +47,7 @@ public class PersonaController {
 		System.out.println(persona.getEmail());
 		System.out.println(persona.getApellido());
 		
-		if(persona.getNombre().length()>20||persona.getNombre().length()<3||persona.getApellido().length()>20||persona.getApellido().length()<3||persona.getEmail().length()<10||persona.getRut().isEmpty()) {
+		if(persona.getNombre().length()>20||persona.getNombre().length()<3||persona.getApellido().length()>20||persona.getApellido().length()<3||persona.getEmail().length()<10||persona.getRut().isEmpty()||persona.getRut().isBlank()) {
 			model.addAttribute("error", "Los campos ingresados no cumplen las condiciones");
 			List<Persona> lista_persona = es.findAll();
 			model.addAttribute("lista", lista_persona);
@@ -71,22 +72,19 @@ public class PersonaController {
 	}
 	
 	@RequestMapping(value="/modificar", method = RequestMethod.PUT)
-	public String modificar(@Valid @ModelAttribute("usuario") Persona persona, Model model) {
-		System.out.println(persona.getId());
-		
-		if(persona.getNombre().length()>20||persona.getNombre().length()<3||persona.getApellido().length()>20||persona.getApellido().length()<3||persona.getEmail().length()<10||persona.getRut().isEmpty()) {	
-			model.addAttribute("error", "Los campos ingresados no cumplen las condiciones");
-			model.addAttribute("usuario", persona);
-			return "redirect:/persona/actualizar/"+persona.getId();
-			
-			
-		}
-		else {
-			es.crearPersona(persona); //va a service
-			
-			return "redirect:/persona";
-		}
-	}
+    public String modificar(@Valid @ModelAttribute("usuario") Persona persona, RedirectAttributes redirectAttrs) {
+        System.out.println(persona.getId());
+       
+        if(persona.getNombre().length()>20||persona.getNombre().length()<3||persona.getApellido().length()>20||persona.getApellido().length()<3||persona.getEmail().length()<10||persona.getRut().isEmpty()||persona.getRut().isBlank()) {   
+            redirectAttrs.addAttribute("id", persona.getId()).addFlashAttribute("error", "Los campos ingresados no cumplen las condiciones");
+            return "redirect:/persona/actualizar/"+persona.getId();
+        }
+        else {
+            es.crearPersona(persona); //va a service
+           
+            return "redirect:/persona";
+        }
+    }
 	
 	//METODOS DE ELIMINAR-------------------------------
 	@RequestMapping(value="/eliminar/{id}", method=RequestMethod.DELETE)
