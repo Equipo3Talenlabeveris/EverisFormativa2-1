@@ -9,7 +9,7 @@
 </head>
 	<body>
 		<div>
-				<form:form action="/usuario/modificar" method="post" modelAttribute="usuario">
+				<form:form action="/persona/modificar" method="post" modelAttribute="usuario">
 					<input type="hidden" name="_method" value="put" >
 					<form:hidden path="id"/>
 
@@ -23,7 +23,7 @@
 					<form:input type="text" path="apellido" /><br>
 
 					<form:label path="email">Email:</form:label>
-					<form:input type="text" path="edad" /><br>
+					<form:input type="text" path="email" /><br>
 
 
 					<input type="submit" value="Modificar">

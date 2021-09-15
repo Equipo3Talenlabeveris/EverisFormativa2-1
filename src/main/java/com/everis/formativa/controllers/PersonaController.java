@@ -42,6 +42,10 @@ public class PersonaController {
 		System.out.println("Crear" + persona);
 		//llamado a guardar el objeto
 		
+		System.out.println(persona.getId());
+		System.out.println(persona.getEmail());
+		System.out.println(persona.getApellido());
+		
 		es.crearPersona(persona); //va a service
 		
 		return "redirect:/persona";

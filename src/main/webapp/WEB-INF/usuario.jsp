@@ -22,7 +22,7 @@
 					<form:input type="text" path="apellido" /><br>
 
 					<form:label path="email">Email:</form:label>
-					<form:input type="text" path="apellido" /><br>
+					<form:input type="text" path="email" /><br>
 
 
 					<input type="submit" value="Crear Usuario">
@@ -62,8 +62,8 @@
 								</td>
 
 
-								<td> <a href="/usuario/actualizar/${usuario.id}">Editar</a>								
-									<form action="/usuario/eliminar/${usuario.id}" method="POST">
+								<td> <a href="/persona/actualizar/${usuario.id}">Editar</a>								
+									<form action="/persona/eliminar/${usuario.id}" method="POST">
 										<input type="hidden" name="_method" value="delete" >
 										<input type="submit" value="Eliminar">
 									</form>	
